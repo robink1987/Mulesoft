@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="6d858fe3-c987-4747-a1cd-a3dfadeee579" >
+		<file:connection workingDir="C:\New" />
+	</file:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d8d1cdac-1dbc-4bc4-8dce-e4d1cdb2b8c2" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="fileconnector" doc:id="119a6385-9382-4f9c-915e-1884ded647ee" >
+		<http:listener doc:name="Listener" doc:id="417a531f-05b0-437e-ad74-21575f80a587" config-ref="HTTP_Listener_config" path="/g"/>
+		<file:read doc:name="Read" doc:id="ad651789-0794-4ef8-8889-395047300fa8" config-ref="File_Config" path="Resource\Employ.json"/>
+		<file:write doc:name="Write" doc:id="126632ca-3a1d-4497-80ca-d7c850f93046" config-ref="File_Config" path="Target\em.json"/>
+		<file:rename doc:name="Rename" doc:id="54d7c74a-6168-40d5-996e-d4c5e82a29c1" config-ref="File_Config" path="Target" to="Rob"/>
+	</flow>
+</mule>
